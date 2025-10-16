@@ -1,4 +1,4 @@
-## Hi there 👋
+## Welcome to the Diapason Foundation Universe! 👋
 
 <!--
 **linusliennegerdev-alt/linusliennegerdev-alt** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
