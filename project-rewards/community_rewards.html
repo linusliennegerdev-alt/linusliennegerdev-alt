@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Rewards - An Explosion of Good Deeds</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    <script src="./tailwind.config.js"></script>
+    <link rel="stylesheet" href="./community_rewards.css">
+</head>
+<body class="bg-brand-dark font-sans text-brand-light overflow-x-hidden">
+
+    <!-- Header -->
+    <header class="bg-brand-dark/80 backdrop-blur-lg sticky top-0 z-50 border-b-2 border-brand-purple/50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-3xl font-serif font-bold text-gradient">
+                CR
+            </a>
+            <div class="hidden md:flex items-center space-x-8 font-semibold">
+                <a href="#actions" class="hover:text-brand-lime transition duration-300">Actions</a>
+                <a href="#rewards" class="hover:text-brand-lime transition duration-300">Rewards</a>
+                <a href="#partners" class="hover:text-brand-lime transition duration-300">Partners</a>
+            </div>
+            <div class="hidden md:flex items-center space-x-4">
+                <a href="#" class="font-semibold hover:text-brand-pink transition duration-300">Log In</a>
+                <a href="#" class="bg-gradient-to-r from-brand-pink to-brand-purple text-white font-bold py-2 px-6 rounded-full hover:scale-105 transition-transform duration-300 animate-glow">
+                    JOIN THE MOVEMENT
+                </a>
+            </div>
+            <button id="mobile-menu-button" class="md:hidden text-white">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4 border-t-2 border-brand-purple/30">
+            <a href="#actions" class="block py-3 text-lg font-semibold hover:text-brand-lime">Actions</a>
+            <a href="#rewards" class="block py-3 text-lg font-semibold hover:text-brand-lime">Rewards</a>
+            <a href="#partners" class="block py-3 text-lg font-semibold hover:text-brand-lime">Partners</a>
+            <div class="border-t my-2 border-gray-700"></div>
+            <a href="#" class="block py-2 font-semibold hover:text-brand-pink">Log In</a>
+            <a href="#" class="block mt-2 bg-gradient-to-r from-brand-pink to-brand-purple text-white font-bold py-3 px-4 rounded-full text-center">JOIN</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="relative bg-pattern py-24 md:py-40 overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-b from-brand-dark via-brand-dark/80 to-brand-dark"></div>
+            <div class="container mx-auto px-6 text-center relative z-10">
+                <h1 class="text-5xl md:text-8xl font-black font-serif animate-fade-in-up">
+                    <span class="text-gradient">Unleash</span> Your Impact.
+                </h1>
+                <p class="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto my-8 animate-fade-in-up" style="animation-delay: 0.2s;">
+                    This isn't just volunteering. It's a revolution of kindness. Dive into a universe of opportunities, rack up points, and claim rewards that celebrate your awesomeness.
+                </p>
+                <div class="animate-fade-in-up" style="animation-delay: 0.4s;">
+                    <a href="#actions" class="bg-brand-lime text-brand-dark font-bold py-4 px-10 rounded-full text-lg uppercase tracking-wider hover:scale-105 hover:shadow-2xl hover:shadow-brand-lime/50 transition-all duration-300">
+                        Start Your Quest
+                    </a>
+                </div>
+            </div>
+            <!-- Decorative Elements -->
+            <div class="absolute -top-10 -left-20 w-60 h-60 bg-brand-pink/20 rounded-full filter blur-3xl animate-pulse"></div>
+            <div class="absolute -bottom-20 -right-10 w-72 h-72 bg-brand-purple/20 rounded-full filter blur-3xl animate-pulse animation-delay-4000"></div>
+        </section>
+
+        <!-- Marquee Text -->
+        <div class="bg-brand-lime text-brand-dark py-4 overflow-hidden whitespace-nowrap">
+            <div class="animate-marquee inline-block">
+                <span class="text-2xl font-bold mx-4">MAKE A DIFFERENCE ✨</span>
+                <span class="text-2xl font-serif italic mx-4">EARN REWARDS 💖</span>
+                <span class="text-2xl font-bold mx-4">CHANGE THE WORLD 🚀</span>
+                <span class="text-2xl font-serif italic mx-4">BE A HERO 🌟</span>
+                <span class="text-2xl font-bold mx-4">GET INVOLVED NOW 🔥</span>
+            </div>
+            <div class="animate-marquee inline-block">
+                <span class="text-2xl font-bold mx-4">MAKE A DIFFERENCE ✨</span>
+                <span class="text-2xl font-serif italic mx-4">EARN REWARDS 💖</span>
+                <span class="text-2xl font-bold mx-4">CHANGE THE WORLD 🚀</span>
+                <span class="text-2xl font-serif italic mx-4">BE A HERO 🌟</span>
+                <span class="text-2xl font-bold mx-4">GET INVOLVED NOW 🔥</span>
+            </div>
+        </div>
+
+        <!-- Featured Actions Section -->
+        <section id="actions" class="py-20 bg-brand-dark">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-6xl font-black font-serif"><span class="text-gradient">Adventures in Altruism</span></h2>
+                    <p class="text-lg text-gray-400 mt-4">Your next great story starts here. Choose your mission.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <!-- Action Card 1 -->
+                    <div class="bg-gray-800/50 border-2 border-brand-teal/50 rounded-2xl overflow-hidden card-glow animated-element" style="transform: translateY(50px);">
+                        <div class="relative">
+                            <img src="https://placehold.co/600x400/14B8A6/111827?text=ECO+WARRIOR" alt="Community Cleanup" class="w-full h-56 object-cover">
+                            <div class="absolute top-4 left-4 bg-brand-teal text-brand-dark font-bold text-sm py-1 px-3 rounded-full">ENVIRONMENTAL</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold mb-3">Urban Jungle Reclamation</h3>
+                            <p class="text-gray-300 mb-6">Join our elite squad to transform neglected city spaces into vibrant green oases. Gloves on, world on.</p>
+                            <div class="flex justify-between items-center text-lg font-bold text-brand-lime">
+                                <span>📍 Concrete Meadows</span>
+                                <span>+50 PTS</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Action Card 2 -->
+                    <div class="bg-gray-800/50 border-2 border-brand-pink/50 rounded-2xl overflow-hidden card-glow animated-element" style="transform: translateY(50px); transition-delay: 0.2s;">
+                        <div class="relative">
+                            <img src="https://placehold.co/600x400/EC4899/111827?text=TECH+TUTOR" alt="Tech Tutoring" class="w-full h-56 object-cover">
+                             <div class="absolute top-4 left-4 bg-brand-pink text-white font-bold text-sm py-1 px-3 rounded-full">EDUCATION</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold mb-3">Code Crusaders Guild</h3>
+                            <p class="text-gray-300 mb-6">Share your tech wizardry. Mentor the next generation of digital architects and help bridge the digital divide.</p>
+                            <div class="flex justify-between items-center text-lg font-bold text-brand-lime">
+                                <span>📍 Innovation Hub</span>
+                                <span>+70 PTS</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Action Card 3 -->
+                    <div class="bg-gray-800/50 border-2 border-brand-purple/50 rounded-2xl overflow-hidden card-glow animated-element" style="transform: translateY(50px); transition-delay: 0.4s;">
+                        <div class="relative">
+                            <img src="https://placehold.co/600x400/4F46E5/FFFFFF?text=ART+ACTIVIST" alt="Mural Painting" class="w-full h-56 object-cover">
+                            <div class="absolute top-4 left-4 bg-brand-purple text-white font-bold text-sm py-1 px-3 rounded-full">CREATIVE ARTS</div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold mb-3">Community Canvas Project</h3>
+                            <p class="text-gray-300 mb-6">Wield a paintbrush for a cause! Help create a massive public mural that tells our community's story.</p>
+                            <div class="flex justify-between items-center text-lg font-bold text-brand-lime">
+                                <span>📍 Downtown Walls</span>
+                                <span>+60 PTS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Rewards Section -->
+        <section id="rewards" class="py-20 bg-pattern">
+            <div class="container mx-auto px-6 relative z-10">
+                <div class="text-center mb-16">
+                     <h2 class="text-4xl md:text-6xl font-black font-serif"><span class="text-gradient">The Treasure Trove</span></h2>
+                    <p class="text-lg text-gray-400 mt-4">You did the good. Now get the goods.</p>
+                </div>
+                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Reward Card 1 -->
+                    <div class="bg-gray-800 border-2 border-brand-lime/50 rounded-2xl p-6 text-center card-glow animated-element" style="transform: translateY(50px);">
+                         <img src="https://placehold.co/100x100/A3E635/111827?text=☕" alt="Cafe Logo" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-gray-700">
+                         <h3 class="text-xl font-bold">Caffeine Jolt</h3>
+                         <p class="text-gray-400 mb-4 text-sm">The Daily Grind</p>
+                         <div class="bg-brand-lime text-brand-dark text-lg font-black py-2 px-4 rounded-full inline-block">25 PTS</div>
+                    </div>
+                     <!-- Reward Card 2 -->
+                    <div class="bg-gray-800 border-2 border-brand-lime/50 rounded-2xl p-6 text-center card-glow animated-element" style="transform: translateY(50px); transition-delay: 0.15s;">
+                         <img src="https://placehold.co/100x100/A3E635/111827?text=🧘" alt="Yoga Logo" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-gray-700">
+                         <h3 class="text-xl font-bold">Instant Zen</h3>
+                         <p class="text-gray-400 mb-4 text-sm">Serenity Yoga</p>
+                         <div class="bg-brand-lime text-brand-dark text-lg font-black py-2 px-4 rounded-full inline-block">75 PTS</div>
+                    </div>
+                     <!-- Reward Card 3 -->
+                    <div class="bg-gray-800 border-2 border-brand-lime/50 rounded-2xl p-6 text-center card-glow animated-element" style="transform: translateY(50px); transition-delay: 0.3s;">
+                         <img src="https://placehold.co/100x100/A3E635/111827?text=🎟️" alt="Cinema Logo" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-gray-700">
+                         <h3 class="text-xl font-bold">Movie Magic</h3>
+                         <p class="text-gray-400 mb-4 text-sm">The Grand Cinema</p>
+                         <div class="bg-brand-lime text-brand-dark text-lg font-black py-2 px-4 rounded-full inline-block">100 PTS</div>
+                    </div>
+                     <!-- Reward Card 4 -->
+                    <div class="bg-gray-800 border-2 border-brand-lime/50 rounded-2xl p-6 text-center card-glow animated-element" style="transform: translateY(50px); transition-delay: 0.45s;">
+                         <img src="https://placehold.co/100x100/A3E635/111827?text=📖" alt="Bookstore Logo" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-gray-700">
+                         <h3 class="text-xl font-bold">Epic Saga</h3>
+                         <p class="text-gray-400 mb-4 text-sm">Reader's Corner</p>
+                         <div class="bg-brand-lime text-brand-dark text-lg font-black py-2 px-4 rounded-full inline-block">50 PTS</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partner CTA -->
+        <section id="partners" class="py-20 bg-brand-dark">
+            <div class="container mx-auto px-6">
+                <div class="relative bg-gradient-to-br from-brand-purple to-brand-pink text-white rounded-3xl p-12 text-center overflow-hidden">
+                    <div class="absolute -top-10 -right-10 w-40 h-40 bg-white/10 rounded-full"></div>
+                    <div class="absolute -bottom-16 -left-10 w-52 h-52 bg-white/10 rounded-full"></div>
+                    <h2 class="text-4xl md:text-5xl font-black mb-4 relative z-10">Power Up the Goodness.</h2>
+                    <p class="text-lg opacity-90 max-w-2xl mx-auto mb-8 relative z-10">Are you a non-profit seeking heroes or a business ready to champion them? Join our alliance and amplify your impact.</p>
+                    <a href="#" class="bg-white text-brand-dark font-bold py-4 px-10 rounded-full text-lg uppercase tracking-wider hover:scale-105 hover:shadow-2xl hover:shadow-white/30 transition-all duration-300 relative z-10">Become a Partner</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white border-t-4 border-brand-lime">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8">
+                <div class="col-span-2 md:col-span-2">
+                    <h3 class="text-2xl font-serif font-bold text-gradient mb-4">Community Rewards</h3>
+                    <p class="text-gray-400">A <span class="text-brand-lime font-semibold">Diapason Foundation</span> initiative, forging a better future with AI and human kindness.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold tracking-wider uppercase mb-4">Explore</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#actions" class="text-gray-400 hover:text-white">Actions</a></li>
+                        <li><a href="#rewards" class="text-gray-400 hover:text-white">Rewards</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Our Mission</a></li>
+                    </ul>
+                </div>
+                 <div>
+                    <h4 class="font-bold tracking-wider uppercase mb-4">Partners</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#partners" class="text-gray-400 hover:text-white">For Causes</a></li>
+                        <li><a href="#partners" class="text-gray-400 hover:text-white">For Brands</a></li>
+                    </ul>
+                </div>
+                 <div>
+                    <h4 class="font-bold tracking-wider uppercase mb-4">Connect</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Help Center</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-10 pt-6 text-center text-gray-500">
+                <p>&copy; 2025 Community Rewards. All Rights Reserved. Built with ❤️ & 🔥.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./community_rewards.js"></script>
+    <script src="./tailwind.config.js"></script>
+</body>
+</html>

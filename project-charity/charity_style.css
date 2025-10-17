@@ -1,0 +1,146 @@
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            color: #2d3748;
+            overflow-x: hidden;
+        }
+        h1, h2, h3, h4 {
+            font-family: 'Fredoka One', cursive;
+        }
+        .text-stroke {
+            -webkit-text-stroke: 2px #4a5568;
+            text-shadow: 4px 4px 0 #4a5568;
+        }
+        .card {
+            border: 4px solid #2d3748;
+            border-radius: 1.5rem;
+            box-shadow: 8px 8px 0 #2d3748;
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            box-shadow: 12px 12px 0 #f472b6;
+        }
+        .btn-donate {
+            border: 4px solid #2d3748;
+            border-radius: 1rem;
+            box-shadow: 5px 5px 0 #2d3748;
+            transition: all 0.2s ease-in-out;
+        }
+        .btn-donate:hover {
+            transform: translateY(-3px) translateX(-3px);
+            box-shadow: 8px 8px 0 #2d3748;
+        }
+        header.scrolled {
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        .hero-image-shadow {
+            filter: drop-shadow(10px 10px 0 rgb(75 85 99 / 1));
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+            100% { transform: translateY(0px); }
+        }
+        .animate-float {
+            animation: float 5s ease-in-out infinite;
+        }
+        
+        .sticker {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            animation: float 6s ease-in-out infinite;
+        }
+        .sticker-star {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23FBBF24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>');
+        }
+        .sticker-heart {
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23F472B6"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>');
+        }
+        .card:hover img { transform: scale(1.05); }
+        .card img { transition: transform 0.3s ease-in-out; }
+
+        /* Scroll Animations */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+            will-change: opacity, transform;
+        }
+        .animate-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .delay-1 { transition-delay: 0.1s; }
+        .delay-2 { transition-delay: 0.2s; }
+        .delay-3 { transition-delay: 0.3s; }
+        
+        /* Стили для анимации шаров */
+        .scene {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            pointer-events: none; /* Чтобы сцена не мешала кликам по сайту */
+            z-index: -1; /* Помещаем фон за основной контент */
+        }
+
+        .balloon {
+            position: absolute;
+            will-change: transform;
+        }
+
+        /* Стили для бегущей строки в футере */
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+
+        .marquee {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .marquee-content {
+            display: flex;
+            width: 200%;
+            animation: marquee 30s linear infinite;
+        }
+
+        .marquee-content span {
+            width: 50%;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        /* --- NEW: Custom Slider Styles --- */
+        input[type=range] {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 100%;
+          background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+          -webkit-appearance: none;
+          height: 40px;
+          width: 40px;
+          border-radius: 50%;
+          background: #3B82F6; /* blue-500 */
+          cursor: pointer;
+          margin-top: -14px;
+          border: 4px solid white;
+          box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+          width: 100%;
+          height: 12px;
+          cursor: pointer;
+          background: #ffffff;
+          border-radius: 5px;
+          border: 2px solid #374151;
+        }

@@ -1,0 +1,52 @@
+/* Custom styles to integrate the chosen fonts */
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #121212; /* Dark theme background */
+    color: #EAEAEA; /* Light text for readability on dark background */
+}
+
+/* The 'font-serif' class from Tailwind will now use Lora */
+.font-serif {
+    font-family: 'Lora', serif;
+}
+
+/* The 'font-sans' class will use Inter */
+.font-sans {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Custom styling for article-like text for enhanced readability */
+.article-content p {
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+}
+
+.article-content h2, .article-content h3 {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Subtle underline effect for links */
+.link-underline {
+    position: relative;
+    text-decoration: none;
+    color: #EAEAEA;
+}
+
+.link-underline::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    bottom: -2px;
+    left: 0;
+    background-color: #EAEAEA;
+    transform: scaleX(0);
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+
+.link-underline:hover::after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}

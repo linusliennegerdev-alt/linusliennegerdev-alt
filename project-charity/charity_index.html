@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diapason Foundation - Полет Добра!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="charity_style.css">
+</head>
+
+<body class="bg-sky-100">
+
+    <!-- === СЦЕНА С АНИМАЦИЕЙ ШАРОВ === -->
+    <div class="scene" id="scene">
+        <!-- Контейнер, где будут создаваться шары -->
+        <div id="balloon-field" class="w-full h-full"></div>
+    </div>
+    <!-- === КОНЕЦ СЦЕНЫ === -->
+
+
+    <!-- Header со страницы фонда -->
+    <header id="header" class="bg-white/70 backdrop-blur-lg border-b-4 border-gray-800 fixed w-full top-0 z-50 transition-shadow duration-300">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="flex flex-col leading-none text-sky-500" style="font-family: 'Fredoka One', cursive;">
+                <span class="text-3xl font-bold">Diapason</span>
+                <span class="text-xs font-normal tracking-widest uppercase">Charitable Foundation</span>
+            </a>
+            <nav class="hidden md:flex items-center space-x-6 font-bold text-lg">
+                <a href="#home" class="hover:text-pink-500 transition duration-300 transform hover:rotate-[-6deg]">Home</a>
+                <a href="#about" class="hover:text-amber-500 transition duration-300 transform hover:rotate-[4deg]">About Us</a>
+                <a href="#projects" class="hover:text-teal-500 transition duration-300 transform hover:rotate-[-5deg]">Projects</a>
+                <a href="#contact" class="hover:text-violet-500 transition duration-300 transform hover:rotate-[3deg]">Contact</a>
+            </nav>
+            <a href="#donate" class="hidden md:inline-block bg-pink-500 text-white font-bold px-6 py-3 rounded-xl btn-donate">DONATE!</a>
+            <button id="mobile-menu-button" class="md:hidden text-gray-800">
+                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            </button>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-white/90 border-t-4 border-gray-800 px-6 pb-4">
+             <a href="#home" class="block py-2 text-lg font-bold hover:text-pink-500">Home</a>
+             <a href="#about" class="block py-2 text-lg font-bold hover:text-amber-500">About Us</a>
+             <a href="#projects" class="block py-2 text-lg font-bold hover:text-teal-500">Projects</a>
+             <a href="#contact" class="block py-2 text-lg font-bold hover:text-violet-500">Contact</a>
+             <a href="#donate" class="block mt-4 w-full text-center bg-pink-500 text-white font-bold px-6 py-3 rounded-lg btn-donate">DONATE!</a>
+        </div>
+    </header>
+
+    <main class="pt-24 relative z-10"> <!-- Добавляем z-index, чтобы контент был над сценой -->
+        <!-- Hero Section -->
+        <section id="home" class="relative py-20 bg-sky-300/80 backdrop-blur-sm border-b-4 border-t-4 border-gray-800 overflow-hidden">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-6xl md:text-8xl text-white text-stroke">LET'S DO GOOD TOGETHER!</h1>
+                <p class="text-2xl mt-4 mb-8 font-bold text-gray-800 max-w-2xl mx-auto">Our foundation is a big, big team of friends who make the world a little better and a lot more fun!</p>
+                <img src="https://placehold.co/800x400/FFFFFF/4F46E5?text=Our+Super+Kids!" alt="Kids' Drawings" class="mx-auto rounded-2xl card hero-image-shadow">
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about" class="py-20 bg-amber-200/80 backdrop-blur-sm border-b-4 border-gray-800 animate-on-scroll">
+             <div class="container mx-auto px-6">
+                 <div class="grid md:grid-cols-2 gap-10 items-center">
+                    <div class="relative">
+                        <div class="bg-teal-400 p-4 rounded-2xl card transform rotate-[-4deg]">
+                           <img src="https://placehold.co/600x450/FFFFFF/14B8A6?text=Team+of+Wizards" alt="Our Team" class="rounded-xl w-full">
+                        </div>
+                        <div class="bg-pink-400 p-3 rounded-2xl card transform rotate-[5deg] absolute -bottom-10 -right-10 w-2/3">
+                            <img src="https://placehold.co/400x300/FFFFFF/EC4899?text=Having+Fun!" alt="Volunteers" class="rounded-lg w-full">
+                        </div>
+                    </div>
+                    <div class="relative z-10 bg-white/70 backdrop-blur-sm p-8 rounded-xl border-2 border-gray-800">
+                        <h2 class="text-5xl text-amber-500 mb-4" style="font-family: 'Fredoka One', cursive;">Who are we?</h2>
+                        <p class="text-lg font-semibold leading-relaxed text-gray-700">We are a noisy bunch of grown-ups who haven't forgotten how to believe in magic! We are convinced that every toy, every book, and every smile can change the world. Our "Diapason" foundation is a factory for producing children's happiness!</p>
+                    </div>
+                 </div>
+            </div>
+        </section>
+        
+        <!-- Projects Section -->
+        <section id="projects" class="py-20 bg-violet-300/80 backdrop-blur-sm border-b-4 border-gray-800">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12 animate-on-scroll">
+                     <h2 class="text-6xl text-white text-stroke">OUR AWESOME PROJECTS!</h2>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-12">
+                    <div class="bg-teal-200 rounded-2xl p-6 card transform hover:rotate-[-3deg] animate-on-scroll delay-1">
+                        <h3 class="text-3xl text-teal-800 mb-2" style="font-family: 'Fredoka One', cursive;">Academy of Wonders</h3>
+                        <p class="font-semibold mb-4">Learning to read, count, and draw unicorns! We turn the most boring lessons into adventures.</p>
+                        <img src="https://placehold.co/400x250/FFFFFF/0D9488?text=Learning+is+FUN!" class="rounded-lg border-2 border-gray-800">
+                    </div>
+                    <div class="bg-rose-200 rounded-2xl p-6 card transform hover:rotate-[2deg] animate-on-scroll delay-2">
+                        <h3 class="text-3xl text-rose-800 mb-2" style="font-family: 'Fredoka One', cursive;">First-Aid Kit of Laughter</h3>
+                        <p class="font-semibold mb-4">The best medicine is laughter! And also vitamins and caring doctors that we bring to the children.</p>
+                         <img src="https://placehold.co/400x250/FFFFFF/BE123C?text=Stay+Healthy!" class="rounded-lg border-2 border-gray-800">
+                    </div>
+                    <div class="bg-amber-200 rounded-2xl p-6 card transform hover:rotate-[-2deg] animate-on-scroll delay-3">
+                        <h3 class="text-3xl text-amber-800 mb-2" style="font-family: 'Fredoka One', cursive;">Pirate's Treasure Chest</h3>
+                        <p class="font-semibold mb-4">Our chest is always full of treasures: toys, clothes, sweets. And we share them with everyone!</p>
+                         <img src="https://placehold.co/400x250/FFFFFF/B45309?text=Treasures!" class="rounded-lg border-2 border-gray-800">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NEW: Impact Slider Section -->
+        <section id="impact" class="py-20 bg-sky-200/80 backdrop-blur-sm border-b-4 border-gray-800">
+            <div class="container mx-auto px-6 text-center">
+                <div class="animate-on-scroll">
+                    <h2 class="text-6xl text-sky-800 mb-4" style="font-family: 'Fredoka One', cursive;">SEE YOUR IMPACT!</h2>
+                    <p class="text-2xl font-bold text-gray-700 max-w-2xl mx-auto mb-10">Slide to see how your kindness creates magic!</p>
+                </div>
+                <div class="max-w-2xl mx-auto bg-white/80 p-8 rounded-2xl card animate-on-scroll delay-1">
+                    <div class="text-center mb-6">
+                        <div id="impact-icon" class="text-8xl transition-transform duration-300 transform">🎨</div>
+                        <p class="text-3xl font-bold text-gray-800 mt-4">
+                            Your <span id="donation-value" class="text-sky-600">$5</span> provides...
+                        </p>
+                        <p id="impact-text" class="text-2xl font-semibold text-gray-700 h-16">A set of art supplies for one child!</p>
+                    </div>
+                    <input type="range" id="impact-slider" min="5" max="100" value="5" step="1" class="w-full">
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Donation Section -->
+        <section id="donate" class="py-20 bg-pink-400/80 backdrop-blur-sm border-b-4 border-gray-800">
+            <div class="container mx-auto px-6 text-center">
+                 <div class="animate-on-scroll">
+                    <h2 class="text-6xl text-white text-stroke mb-4">BE A SUPERHERO OF KINDNESS!</h2>
+                    <p class="text-2xl font-bold text-gray-800 max-w-2xl mx-auto mb-8">Every coin is a magic seed from which a huge tree of joy will grow!</p>
+                 </div>
+                <div class="max-w-xl mx-auto bg-white/80 p-8 rounded-2xl card animate-on-scroll delay-1">
+                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+                        <button class="donation-amount bg-sky-400 hover:bg-sky-500 text-white font-bold py-4 rounded-lg text-lg transform hover:scale-110 transition-transform">$5</button>
+                        <button class="donation-amount bg-amber-400 hover:bg-amber-500 text-white font-bold py-4 rounded-lg text-lg transform hover:scale-110 transition-transform">$15</button>
+                        <button class="donation-amount bg-teal-400 hover:bg-teal-500 text-white font-bold py-4 rounded-lg text-lg transform hover:scale-110 transition-transform">$25</button>
+                        <button class="donation-amount bg-gray-400 hover:bg-gray-500 text-white font-bold py-4 rounded-lg text-lg transform hover:scale-110 transition-transform">?</button>
+                    </div>
+                     <input type="number" id="custom-amount" placeholder="Your super-amount" class="w-full p-3 rounded-lg border-2 border-gray-800 text-center font-bold mb-6 hidden">
+                    <button class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-5 rounded-xl text-2xl btn-donate">LAUNCH THE GOODNESS!</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 bg-white/50 backdrop-blur-sm">
+             <div class="container mx-auto px-6">
+                 <div class="text-center mb-12 animate-on-scroll">
+                     <h2 class="text-6xl text-violet-500" style="font-family: 'Fredoka One', cursive;">GOT AN IDEA?</h2>
+                     <p class="text-xl font-bold mt-2">Write us a letter! Or draw us a picture!</p>
+                 </div>
+                 <form class="max-w-lg mx-auto bg-white p-8 rounded-2xl card animate-on-scroll delay-1">
+                      <div class="mb-4">
+                           <label for="name" class="block font-bold mb-1 text-lg">What's your name?</label>
+                           <input type="text" id="name" name="name" class="w-full p-3 border-2 border-gray-800 rounded-lg text-lg font-semibold focus:outline-none focus:ring-4 focus:ring-amber-400">
+                       </div>
+                       <div class="mb-4">
+                           <label for="email" class="block font-bold mb-1 text-lg">Your carrier pigeon (Email)</label>
+                           <input type="email" id="email" name="email" class="w-full p-3 border-2 border-gray-800 rounded-lg text-lg font-semibold focus:outline-none focus:ring-4 focus:ring-amber-400">
+                       </div>
+                       <div class="mb-6">
+                           <label for="message" class="block font-bold mb-1 text-lg">Your secret message</label>
+                           <textarea id="message" name="message" rows="5" class="w-full p-3 border-2 border-gray-800 rounded-lg text-lg font-semibold focus:outline-none focus:ring-4 focus:ring-amber-400"></textarea>
+                       </div>
+                       <button type="submit" class="w-full bg-violet-500 hover:bg-violet-600 text-white font-bold py-4 rounded-xl text-2xl btn-donate">SEND IT!</button>
+                 </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white pt-10 pb-4 relative z-10">
+        <!-- NEW: Marquee -->
+        <div class="marquee bg-gray-900 py-3 mb-8 border-y-4 border-amber-300">
+            <div class="marquee-content font-bold text-2xl text-amber-300">
+                <span class="mx-8">❤️ Thank You For Your Support!</span>
+                <span class="mx-8">✨ Let's Make Magic Happen!</span>
+                <span class="mx-8">🎉 Every Donation Counts!</span>
+                <span class="mx-8">🦄 Creating Smiles Daily!</span>
+                <!-- Duplicate for seamless loop -->
+                <span class="mx-8">❤️ Thank You For Your Support!</span>
+                <span class="mx-8">✨ Let's Make Magic Happen!</span>
+                <span class="mx-8">🎉 Every Donation Counts!</span>
+                <span class="mx-8">🦄 Creating Smiles Daily!</span>
+            </div>
+        </div>
+        <div class="container mx-auto px-6 text-center">
+            <div class="inline-flex flex-col items-center leading-tight" style="font-family: 'Fredoka One', cursive;">
+                <span class="font-bold text-2xl">Diapason</span>
+                <span class="text-sm font-normal">Charitable Foundation © 2024</span>
+            </div>
+            <p>Made with love and a pinch of magic!</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script src="charity_script.js"></script>
+    <script src="balloon_animation.js"></script>
+</body>
+</html>
+
+
