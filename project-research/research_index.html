@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diapason Research - Exploring the Frontiers</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Exo+2:wght@500;700&family=Roboto+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #000000;
+            color: #EAEAEA;
+            font-family: 'Roboto Mono', monospace;
+        }
+
+        #simulationCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 5rem;
+            /* Increased size */
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: white;
+            text-shadow: 0 0 15px rgba(0, 0, 0, 0.8), 0 0 8px rgba(139, 92, 246, 0.6);
+            animation: fadeIn 2s ease-out, pulseGlow 4s infinite alternate;
+        }
+
+        .scroll-down-indicator {
+            position: absolute;
+            bottom: 2rem;
+            animation: fadeIn 2s ease-out 1s forwards, bounce 2s infinite;
+            opacity: 0;
+        }
+
+        .scroll-down-indicator a {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Content Section */
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+            background: linear-gradient(180deg, rgba(0, 0, 5, 0) 0%, #010105 15%, #010105 85%, rgba(0, 0, 5, 0) 100%);
+            padding: 10rem 0;
+        }
+
+        .section {
+            max-width: 900px;
+            margin: 0 auto 8rem auto;
+            padding: 0 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        h2 {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 3rem;
+            /* Increased size */
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 3rem;
+            background: -webkit-linear-gradient(45deg, #A78BFA, #F472B6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section p,
+        .section li {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #B0B0C0;
+            margin-bottom: 1rem;
+        }
+
+        /* Key Areas Cards */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background: rgba(15, 15, 25, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+
+        .card h3 {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1.75rem;
+            /* Increased size */
+            font-weight: 500;
+            color: #EAEAEA;
+            margin-bottom: 1rem;
+        }
+
+        .card p {
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+        }
+
+        .cta-section p {
+            max-width: 600px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .form-container {
+            display: flex;
+            gap: 0.75rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        input[type="email"] {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            color: #FFFFFF;
+            width: 320px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="email"]:focus {
+            outline: none;
+            border-color: #A78BFA;
+            box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.3);
+        }
+
+        button {
+            background: #8B5CF6;
+            color: #FFFFFF;
+            font-weight: 500;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes pulseGlow {
+            from {
+                text-shadow: 0 0 15px rgba(0, 0, 0, 0.8), 0 0 8px rgba(139, 92, 246, 0.6);
+            }
+
+            to {
+                text-shadow: 0 0 20px rgba(0, 0, 0, 0.9), 0 0 12px rgba(167, 139, 250, 0.8);
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+
+            /* Adjusted for new base size */
+            h2 {
+                font-size: 2.25rem;
+            }
+
+            /* Adjusted for new base size */
+            .content-wrapper {
+                padding: 5rem 0;
+            }
+
+            .form-container {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            input[type="email"] {
+                width: 100%;
+                max-width: 320px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="simulationCanvas"></canvas>
+
+    <header class="hero">
+        <h1>Diapason Research</h1>
+        <div class="scroll-down-indicator">
+            <a href="#about">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor"
+                    class="bi bi-chevron-down" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z" />
+                </svg>
+            </a>
+        </div>
+    </header>
+
+    <main class="content-wrapper">
+        <section class="section" id="about">
+            <h2>About Diapason Research</h2>
+            <p>We are an independent research group at the intersection of artificial intelligence and fundamental
+                sciences. Our mission is to harness the power of advanced algorithms to solve the most complex mysteries
+                of the Universe, from the nature of dark matter to the mechanisms of quantum gravity.</p>
+            <p>Diapason Research believes in open science and interdisciplinary collaboration as the key to the next
+                great breakthrough in human knowledge.</p>
+        </section>
+
+        <section class="section" id="areas">
+            <h2>Key Research Areas</h2>
+            <div class="cards-grid">
+                <div class="card">
+                    <h3>Cosmological Modeling</h3>
+                    <p>Creating high-precision simulations of the Universe's evolution using neural networks to test
+                        theoretical models and search for new physics.</p>
+                </div>
+                <div class="card">
+                    <h3>Collider Data Analysis</h3>
+                    <p>Applying machine learning algorithms to find rare events and anomalies in vast datasets from
+                        particle accelerators.</p>
+                </div>
+                <div class="card">
+                    <h3>Quantum Computing</h3>
+                    <p>Developing and researching quantum algorithms capable of solving problems inaccessible to
+                        classical computers in physics and chemistry.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section cta-section" id="join">
+            <h2>Join the Mission</h2>
+            <p>Get early access to our publications, datasets, and modeling tools. Become part of a community that looks
+                beyond the horizon.</p>
+            <form class="form-container" id="signupForm">
+                <input type="email" id="emailInput" placeholder="Your e-mail" required>
+                <button type="submit">Request Access</button>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        // --- SIMULATION (unchanged) ---
+        const canvas = document.getElementById('simulationCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+        class BlackHole {
+            constructor(x, y, mass) { this.x = x; this.y = y; this.mass = mass; this.rs = (2 * this.mass) / (3000 * 3000); }
+            draw() {
+                ctx.fillStyle = 'black'; ctx.beginPath(); ctx.arc(this.x, this.y, this.rs, 0, Math.PI * 2); ctx.fill();
+                for (let i = 0; i < 5; i++) {
+                    ctx.strokeStyle = `rgba(255, 165, 0, ${0.08 - i * 0.015})`; ctx.lineWidth = 1 + i * 2;
+                    ctx.beginPath(); ctx.arc(this.x, this.y, this.rs + 7 + i * 7, 0, Math.PI * 2); ctx.stroke();
+                }
+            }
+            pull(p) {
+                const dx = this.x - p.x, dy = this.y - p.y, dSq = dx * dx + dy * dy;
+                if (dSq > this.rs * this.rs) { const f = this.mass / dSq, a = Math.atan2(dy, dx); p.vx += f * Math.cos(a); p.vy += f * Math.sin(a); }
+            }
+        }
+        class Photon {
+            constructor(x, y) { this.x = x; this.y = y; this.vx = (Math.random() - 0.5) * 0.5 + 2.5; this.vy = (Math.random() - 0.5) * 0.5; this.history = []; this.isAbsorbed = false; }
+            update() {
+                if (this.isAbsorbed) return;
+                this.history.push({ x: this.x, y: this.y }); if (this.history.length > 50) this.history.shift();
+                this.x += this.vx; this.y += this.vy;
+                const dx = blackHole.x - this.x, dy = blackHole.y - this.y;
+                if (Math.sqrt(dx * dx + dy * dy) < blackHole.rs) this.isAbsorbed = true;
+            }
+            draw() {
+                if (this.isAbsorbed || !this.history.length) return;
+                ctx.beginPath(); ctx.moveTo(this.history[0].x, this.history[0].y); this.history.forEach(p => ctx.lineTo(p.x, p.y));
+                const g = ctx.createLinearGradient(this.history[0].x, this.history[0].y, this.x, this.y);
+                g.addColorStop(0, "rgba(255, 255, 255, 0)"); g.addColorStop(1, "rgba(255, 255, 255, 0.7)");
+                ctx.strokeStyle = g; ctx.lineWidth = 1.2; ctx.stroke();
+            }
+        }
+        let blackHole = new BlackHole(canvas.width / 2, canvas.height / 2, 20000); let photons = []; const numRays = 250;
+        function initPhotons() { photons = []; for (let i = 0; i < numRays; i++) photons.push(new Photon(10, Math.random() * canvas.height)); }
+        initPhotons();
+        function animate() {
+            ctx.fillStyle = 'rgba(0, 0, 5, 0.1)'; ctx.fillRect(0, 0, canvas.width, canvas.height);
+            blackHole.draw();
+            photons.forEach((p, i) => {
+                if (p.isAbsorbed || p.x > canvas.width + 50 || p.x < -50 || p.y > canvas.height + 50 || p.y < -50) { photons[i] = new Photon(10, Math.random() * canvas.height); }
+                else { blackHole.pull(p); p.update(); p.draw(); }
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+            blackHole.x = canvas.width / 2; blackHole.y = canvas.height / 2;
+            initPhotons();
+        });
+
+        // --- ANIMATION ON SCROLL ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.2 });
+        document.querySelectorAll('.section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // --- FORM LOGIC ---
+        const signupForm = document.getElementById('signupForm');
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert("Thank you for your interest! We will be in touch soon.");
+            signupForm.reset();
+        });
+    </script>
+</body>
+
+</html>
