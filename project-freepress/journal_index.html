@@ -3,161 +3,441 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Social Impact: The Free Press Initiative</title>
+    <title>DIVERSA | The Dual Reality News Protocol</title>
+    
+    <!-- React & ReactDOM -->
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Google Fonts: Lora (Serif) and Inter (Sans-Serif) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="journal_style.css">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* Custom Scrollbar for Vice Mode */
+        .vice-scroll::-webkit-scrollbar { width: 8px; }
+        .vice-scroll::-webkit-scrollbar-track { background: #000; }
+        .vice-scroll::-webkit-scrollbar-thumb { background: #ccff00; border-radius: 0; }
+
+        /* Glitch Animation */
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+        .glitch-hover:hover { animation: glitch 0.2s infinite; }
+        
+        /* Marquee Animation */
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            display: inline-flex;
+            white-space: nowrap;
+            animation: marquee 30s linear infinite;
+        }
+        
+        /* Transitions */
+        .mode-transition { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
+    </style>
 </head>
-<body class="antialiased">
+<body>
+    <div id="root"></div>
 
-    <!-- Container for the entire page -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <script type="text/babel">
+        const { useState, useEffect } = React;
 
-        <!-- Header/Navigation -->
-        <header class="py-8 md:py-12">
-            <nav class="flex justify-between items-center">
-                <!-- Logo/Project Name -->
-                <a href="#" class="font-sans text-xl font-semibold tracking-tight">Diapason Foundation</a>
-                
-                <!-- Navigation Links -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#" class="font-sans text-sm font-medium link-underline">Mission</a>
-                    <a href="#" class="font-sans text-sm font-medium link-underline">Technology</a>
-                    <a href="#" class="font-sans text-sm font-medium link-underline">Whitepaper</a>
-                </div>
-                
-                <!-- CTA Button -->
-                <a href="#" class="hidden md:inline-block bg-transparent border border-gray-400 text-gray-300 font-sans text-sm font-semibold py-2 px-5 rounded-full hover:bg-gray-200 hover:text-gray-900 transition-colors duration-300">
-                    Get Involved
-                </a>
+        // --- THE BRAND LOGO COMPONENT ---
+        const DiversaLogo = ({ isVice, className }) => (
+            <svg viewBox="0 0 100 100" className={`${className} overflow-visible`}>
+                {/* Left Bar (Virtue/Foundation) */}
+                <path 
+                    d="M20 10 H45 V90 H20 Z" 
+                    fill="currentColor" 
+                    className="transition-transform duration-300 ease-out group-hover:-translate-x-1"
+                />
+                {/* Right Curve (Vice/Spectrum) */}
+                <path 
+                    d="M50 10 H60 C85 10 90 30 90 50 C90 70 85 90 60 90 H50 V10 Z" 
+                    fill={isVice ? "#ccff00" : "currentColor"} 
+                    className="transition-all duration-300 ease-out group-hover:translate-x-1"
+                />
+            </svg>
+        );
 
-                <!-- Mobile menu button (optional) -->
-                <div class="md:hidden">
-                    <button class="text-gray-300">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
-                    </button>
-                </div>
-            </nav>
-        </header>
+        // --- ICONS ---
+        const Icons = {
+            Banana: ({ className }) => (
+                <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+                    <path d="M21.727 16.591C21.727 16.591 19.341 12.019 14.502 9.076C9.663 6.133 4.887 6.643 3.514 6.945C3.514 6.945 2.506 6.909 2.148 5.636L4.016 5.176C4.016 5.176 4.301 4.561 3.551 4.148C2.801 3.735 1.838 4.675 1.838 4.675C1.838 4.675 0.234 6.275 0.545 8.789C0.856 11.303 3.542 20.373 14.658 20.373C18.667 20.373 22.011 17.514 21.727 16.591Z"/>
+                </svg>
+            ),
+            Menu: ({ className }) => (
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className={className}>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+            ),
+            X: ({ className }) => (
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className={className}>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            ),
+            Tor: ({ className }) => (
+                <svg fill="currentColor" viewBox="0 0 24 24" className={className}>
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z"/>
+                </svg>
+            ),
+             Key: ({ className }) => (
+                <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" className={className}>
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                </svg>
+            )
+        };
 
-        <main>
-            <!-- Hero Section -->
-            <section class="text-center py-16 md:py-24">
-                <div class="max-w-3xl mx-auto">
-                    <p class="font-sans text-sm uppercase tracking-widest text-gray-400 mb-4">Social Impact Initiative</p>
-                    <h1 class="font-serif text-5xl md:text-7xl font-medium leading-tight">
-                        A Free Press for the Decentralized Age.
-                    </h1>
-                    <p class="font-sans text-lg md:text-xl text-gray-300 mt-6 max-w-2xl mx-auto">
-                        We are building a censorship-resistant platform where truth can be recorded, shared, and preserved without reliance on central authorities.
-                    </p>
-                </div>
-            </section>
+        // --- DATA ---
+        const categories = [
+            { id: 'all', virtue: 'Global Pulse', vice: 'WAR ROOM' },
+            { id: 'tech', virtue: 'Innovation', vice: 'SURVEILLANCE' },
+            { id: 'money', virtue: 'Economy', vice: 'GREED' },
+            { id: 'society', virtue: 'Humanity', vice: 'UNREST' },
+            { id: 'earth', virtue: 'Planet', vice: 'EXTINCTION' },
+        ];
 
-            <!-- Main Content Section - Asymmetrical Layout -->
-            <section class="py-16 md:py-24 border-t border-gray-800">
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-16 items-start">
+        const articles = [
+            {
+                id: 1,
+                category: 'earth',
+                virtue: {
+                    title: "Green Tech: New Algae Farms Restore Ocean Balance",
+                    desc: "Scientists deploy autonomous bio-drones to clean coastal waters, showing promising results in reef recovery.",
+                    tag: "Restoration",
+                    img: "https://images.unsplash.com/photo-1583212235753-b25f08929e1e?auto=format&fit=crop&q=80&w=800"
+                },
+                vice: {
+                    title: "OCEAN ACIDIFICATION HITS POINT OF NO RETURN",
+                    desc: "Leaked report confirms: 40% of marine life will suffocate by 2030. Governments are suppressing the data.",
+                    tag: "EXTINCTION EVENT",
+                    img: "https://images.unsplash.com/photo-1617418288624-9b8823c31802?auto=format&fit=crop&q=80&w=800"
+                }
+            },
+            {
+                id: 2,
+                category: 'tech',
+                virtue: {
+                    title: "AI Assistants Now Help Detect Early Signs of Disease",
+                    desc: "Wearable integration allows for pre-emptive care, saving millions of lives annually through early alerts.",
+                    tag: "HealthTech",
+                    img: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80&w=800"
+                },
+                vice: {
+                    title: "YOUR HEALTH DATA WAS SOLD TO INSURERS",
+                    desc: "The 'Pre-emptive Care' act allows corporations to deny coverage based on AI predictions of your future illness.",
+                    tag: "DATA BREACH",
+                    img: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800"
+                }
+            },
+            {
+                id: 3,
+                category: 'money',
+                virtue: {
+                    title: "Decentralized Finance Brings Banking to the Unbanked",
+                    desc: "New micro-loan protocols empower rural communities in developing nations to start sustainable businesses.",
+                    tag: "Financial Inclusion",
+                    img: "https://images.unsplash.com/photo-1604594849806-d63df911517d?auto=format&fit=crop&q=80&w=800"
+                },
+                vice: {
+                    title: "WHALES DUMPED $5B BEFORE THE CRASH",
+                    desc: "On-chain analysis proves insider trading on a massive scale. The 'correction' was a coordinated theft.",
+                    tag: "MARKET RIGGED",
+                    img: "https://images.unsplash.com/photo-1611974765270-ca1258634369?auto=format&fit=crop&q=80&w=800"
+                }
+            }
+        ];
+
+        const App = () => {
+            const [mode, setMode] = useState('virtue');
+            const [activeCategory, setActiveCategory] = useState('all');
+            const [menuOpen, setMenuOpen] = useState(false);
+            
+            const isVice = mode === 'vice';
+            const toggleMode = () => setMode(prev => prev === 'virtue' ? 'vice' : 'virtue');
+
+            // --- STYLES CONFIG ---
+            const styles = {
+                bg: isVice ? 'bg-black' : 'bg-[#f4f4f4]',
+                text: isVice ? 'text-gray-200' : 'text-slate-800',
+                fontHead: isVice ? 'font-mono uppercase tracking-tighter' : 'font-serif',
+                fontBody: isVice ? 'font-mono' : 'font-sans',
+                navBg: isVice ? 'bg-zinc-900 border-b border-zinc-800' : 'bg-white border-b border-gray-200 shadow-sm',
+                card: isVice 
+                    ? 'bg-zinc-900 border border-zinc-800 hover:border-[#ff00ff] hover:shadow-[0_0_15px_rgba(255,0,255,0.3)]' 
+                    : 'bg-white border border-transparent hover:shadow-xl hover:-translate-y-1',
+            };
+
+            const tickerItems = isVice 
+                ? ["⚠ SYSTEM INSTABILITY DETECTED", "BANANA INDEX: 88.4 (CRITICAL)", "BTC: $92,102 (VOLATILE)", "LEAK: 4TB DATA DUMPED TO PUBLICNET"] 
+                : ["✓ SYSTEM OPERATIONAL", "BANANA INDEX: 12.1 (STABLE)", "RENEWABLES EXCEED 40% GRID SHARE", "COMMUNITY NODES: +450 ACTIVE"];
+
+            return (
+                <div className={`min-h-screen mode-transition ${styles.bg} ${styles.text} ${styles.fontBody} overflow-x-hidden`}>
                     
-                    <!-- Sticky Title Column (for larger screens) -->
-                    <div class="md:col-span-4">
-                        <div class="sticky top-24">
-                            <h2 class="font-serif text-3xl font-medium leading-snug">The Written Word as a Pillar of Freedom.</h2>
-                            <p class="font-sans text-gray-400 mt-4">
-                                Our mission is to protect journalistic integrity and empower storytellers by leveraging the inherent resilience and transparency of Web3 technology. We focus on the content, creating a sanctuary for the written word.
-                            </p>
+                    {/* TICKER */}
+                    <div className={`w-full py-1 overflow-hidden whitespace-nowrap border-b z-50 relative ${isVice ? 'bg-[#ccff00] text-black border-black font-bold font-mono' : 'bg-slate-900 text-white border-slate-900 text-xs font-semibold'}`}>
+                        <div className="animate-marquee inline-block">
+                            {[...tickerItems, ...tickerItems, ...tickerItems].map((item, i) => (
+                                <span key={i} className="mx-6">
+                                    {isVice ? '///' : '•'} {item}
+                                </span>
+                            ))}
                         </div>
                     </div>
 
-                    <!-- Article Content Column -->
-                    <div class="md:col-span-8 lg:col-span-7 lg:col-start-6 article-content">
-                        <h3 class="font-serif text-2xl font-semibold">The Problem of Trust</h3>
-                        <p class="font-serif text-base text-gray-300">
-                            In an era of rampant misinformation and centralized control over information flow, the public's trust in media is eroding. Platforms can de-platform voices, governments can censor stories, and historical records can be altered. This creates a fragile ecosystem for truth, where narratives can be manipulated and accountability is lost. The very foundation of a free and informed society is under threat.
-                        </p>
+                    {/* NAVBAR */}
+                    <header className={`sticky top-0 z-40 mode-transition ${styles.navBg}`}>
+                        <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+                            
+                            {/* NEW LOGO INTEGRATION */}
+                            <div className="group flex items-center gap-3 cursor-pointer" onClick={() => window.location.reload()}>
+                                <DiversaLogo isVice={isVice} className={`w-10 h-10 ${isVice ? 'text-white' : 'text-slate-900'}`} />
+                                <div className="leading-none">
+                                    <h1 className={`text-xl font-bold tracking-tighter ${isVice ? 'glitch-hover' : ''}`}>DIVERSA</h1>
+                                </div>
+                            </div>
+
+                            {/* CONTROLS */}
+                            <div className="flex items-center gap-6">
+                                <div 
+                                    onClick={toggleMode}
+                                    className={`cursor-pointer group flex items-center gap-3 px-4 py-1.5 rounded-full border transition-all ${isVice ? 'border-[#ccff00] bg-black hover:bg-[#ccff00]/10' : 'border-gray-300 bg-gray-50 hover:bg-white'}`}
+                                >
+                                    <span className={`text-xs font-bold ${isVice ? 'text-[#ccff00]' : 'text-gray-500'}`}>
+                                        {isVice ? 'VICE MODE' : 'VIRTUE MODE'}
+                                    </span>
+                                    <div className={`relative w-10 h-5 rounded-full transition-colors ${isVice ? 'bg-[#333]' : 'bg-gray-300'}`}>
+                                        <div className={`absolute top-0.5 left-0.5 w-4 h-4 rounded-full transition-transform duration-300 flex items-center justify-center ${isVice ? 'translate-x-5 bg-[#ff00ff]' : 'translate-x-0 bg-white shadow-sm'}`}>
+                                            {isVice 
+                                                ? <span className="text-[8px] font-bold text-black">V</span> 
+                                                : <Icons.Banana className="w-3 h-3 text-yellow-500"/>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button onClick={() => setMenuOpen(true)} className={`p-1 ${isVice ? 'text-[#ccff00] hover:text-[#ff00ff]' : 'text-slate-800 hover:text-blue-600'}`}>
+                                    <Icons.Menu className="w-7 h-7" />
+                                </button>
+                            </div>
+                        </div>
                         
-                        <figure class="my-8">
-                           <img src="https://placehold.co/800x450/2d3748/a0aec0?text=Unwavering+Integrity" alt="Abstract image representing data and truth" class="rounded-lg w-full">
-                           <figcaption class="text-center text-xs text-gray-500 mt-2 font-sans">Blockchain-verified article timestamp and authorship.</figcaption>
-                        </figure>
+                        {/* SUB-NAV */}
+                        <div className={`w-full overflow-x-auto border-t ${isVice ? 'border-zinc-800 bg-black/50' : 'border-gray-100 bg-white/50 backdrop-blur'}`}>
+                            <div className="max-w-7xl mx-auto px-4 flex space-x-8 h-10 items-center min-w-max">
+                                {categories.map(cat => (
+                                    <button
+                                        key={cat.id}
+                                        onClick={() => setActiveCategory(cat.id)}
+                                        className={`text-xs font-bold uppercase tracking-wider transition-colors 
+                                            ${activeCategory === cat.id 
+                                                ? (isVice ? 'text-[#ccff00] border-b-2 border-[#ccff00]' : 'text-blue-700 border-b-2 border-blue-700') 
+                                                : (isVice ? 'text-gray-500 hover:text-gray-300' : 'text-gray-400 hover:text-gray-600')
+                                            } h-full`}
+                                    >
+                                        {isVice ? cat.vice : cat.virtue}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+                    </header>
 
-                        <h3 class="font-serif text-2xl font-semibold">Our Solution: Decentralized & Immutable</h3>
-                        <p class="font-serif text-base text-gray-300">
-                            We address this by removing single points of failure. Every article published through our initiative is cryptographically signed by its author and recorded on a distributed ledger. This creates an immutable, timestamped record that cannot be retroactively altered or deleted by any single entity.
-                        </p>
-                        <p class="font-serif text-base text-gray-300">
-                            This is not just a publishing platform; it is a permanent archive. By distributing the data across a network of nodes, we ensure that stories of public interest remain accessible, verifiable, and resilient against censorship attempts. The design of our system—minimalist, transparent, and secure—is a direct reflection of this core principle. The focus is always on the integrity of the content itself.
-                        </p>
-                        <a href="#" class="font-sans font-semibold text-sm group mt-6 inline-block">
-                            <span>Read the Technical Whitepaper</span>
-                            <span class="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">&rarr;</span>
-                        </a>
-                    </div>
+                    {/* BURGER MENU */}
+                    {menuOpen && (
+                        <div className="fixed inset-0 z-[60] flex justify-end">
+                            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={() => setMenuOpen(false)}></div>
+                            <div className={`relative w-full max-w-sm h-full p-8 flex flex-col mode-transition ${isVice ? 'bg-black border-l border-[#ccff00]' : 'bg-white shadow-2xl'}`}>
+                                <div className="flex justify-between items-center mb-12">
+                                    <div className="group flex items-center gap-2">
+                                        <DiversaLogo isVice={isVice} className={`w-8 h-8 ${isVice ? 'text-white' : 'text-slate-900'}`} />
+                                        <span className={`text-2xl font-bold ${styles.fontHead}`}>DIVERSA</span>
+                                    </div>
+                                    <button onClick={() => setMenuOpen(false)}>
+                                        <Icons.X className="w-8 h-8 hover:opacity-50" />
+                                    </button>
+                                </div>
+                                <nav className="flex flex-col space-y-6 text-2xl font-bold">
+                                    {['Signals', 'Intel', 'Protocol', 'Manifesto'].map((item) => (
+                                        <a key={item} href="#" className={`group flex items-center justify-between border-b pb-4 ${isVice ? 'border-zinc-800 hover:text-[#ccff00]' : 'border-gray-100 hover:text-blue-600'}`}>
+                                            <span>{item}</span>
+                                            <span className={`text-sm opacity-0 group-hover:opacity-100 transition-opacity ${styles.fontBody}`}>&rarr;</span>
+                                        </a>
+                                    ))}
+                                </nav>
+                                <div className="mt-auto">
+                                    <div className={`p-4 rounded border ${isVice ? 'border-zinc-800 bg-zinc-900' : 'border-gray-200 bg-gray-50'}`}>
+                                        <h4 className="text-xs font-bold uppercase opacity-50 mb-2">My Account</h4>
+                                        <div className="flex items-center gap-3">
+                                            <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-500 to-pink-500"></div>
+                                            <div className="text-sm">
+                                                <div className="font-bold">Linus L.</div>
+                                                <div className="opacity-60 text-xs">Reputation: 450 BP</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* MAIN */}
+                    <main className="max-w-7xl mx-auto px-4 sm:px-6 py-10">
+                        <section className="mb-16">
+                            <div className={`relative group cursor-pointer aspect-video md:aspect-[21/9] overflow-hidden ${isVice ? 'border-2 border-[#ccff00]' : 'rounded-xl shadow-2xl'}`}>
+                                <img 
+                                    src={isVice ? "https://images.unsplash.com/photo-1496065187959-7f07b8353c55?auto=format&fit=crop&q=80&w=1600" : "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=1600"} 
+                                    className={`absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 ${isVice ? 'grayscale contrast-125' : ''}`}
+                                />
+                                <div className={`absolute inset-0 bg-gradient-to-t ${isVice ? 'from-black via-black/50' : 'from-slate-900 via-transparent'}`}></div>
+                                <div className="absolute bottom-0 left-0 p-6 md:p-12 max-w-4xl">
+                                    <span className={`inline-block px-2 py-1 mb-4 text-xs font-bold uppercase ${isVice ? 'bg-[#ff00ff] text-black' : 'bg-white text-black rounded'}`}>
+                                        {isVice ? '/// TOP SECRET' : 'Editorial Feature'}
+                                    </span>
+                                    <h2 className={`text-3xl md:text-5xl font-bold leading-tight mb-4 ${isVice ? 'text-[#ccff00] font-mono glitch-hover' : 'text-white font-serif'}`}>
+                                        {isVice ? "WHO CONTROLS THE SILENCE?" : "The Architecture of a Free Press"}
+                                    </h2>
+                                    <p className="text-lg text-gray-200 md:text-xl max-w-2xl line-clamp-2 md:line-clamp-none">
+                                        {isVice 
+                                            ? "New report reveals 80% of global media infrastructure is owned by three conglomerates. We mapped the connections." 
+                                            : "How Diapason Foundation is building a resilient, decentralized network for journalists worldwide."}
+                                    </p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <div className="flex items-end justify-between mb-8 border-b border-opacity-20 pb-4 border-current">
+                            <h3 className={`text-2xl font-bold uppercase ${isVice ? 'text-[#ff00ff]' : ''}`}>
+                                {isVice ? '/// INCOMING FEEDS' : 'Latest Stories'}
+                            </h3>
+                            <div className="text-xs font-bold opacity-60">
+                                FILTER: {categories.find(c => c.id === activeCategory)[isVice ? 'vice' : 'virtue']}
+                            </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                            {articles.map(article => {
+                                const content = isVice ? article.vice : article.virtue;
+                                if (activeCategory !== 'all' && activeCategory !== article.category) return null;
+
+                                return (
+                                    <article key={article.id} className={`group flex flex-col h-full transition-all duration-300 p-5 ${styles.card}`}>
+                                        <div className="relative h-48 mb-5 overflow-hidden">
+                                            <img 
+                                                src={content.img} 
+                                                className={`w-full h-full object-cover transition-transform duration-500 group-hover:scale-110 ${isVice ? 'grayscale contrast-125' : 'rounded'}`} 
+                                            />
+                                            <div className="absolute top-2 left-2">
+                                                <span className={`text-[10px] font-bold uppercase px-2 py-1 ${isVice ? 'bg-black text-[#ccff00] border border-[#ccff00]' : 'bg-white/90 text-slate-800 rounded shadow'}`}>
+                                                    {content.tag}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div className="flex-grow">
+                                            <h4 className={`text-xl font-bold mb-3 leading-tight group-hover:text-current ${styles.fontHead}`}>
+                                                {content.title}
+                                            </h4>
+                                            <p className={`text-sm mb-4 leading-relaxed opacity-80 ${styles.fontBody}`}>
+                                                {content.desc}
+                                            </p>
+                                        </div>
+                                        <div className="flex items-center justify-between pt-4 border-t border-opacity-10 border-current">
+                                            <div className="flex items-center space-x-2">
+                                                <div className="w-6 h-6 rounded-full bg-gray-300"></div>
+                                                <span className="text-xs font-bold opacity-60">Author {article.id}</span>
+                                            </div>
+                                            <span className={`text-xs font-bold ${isVice ? 'text-[#ff00ff]' : 'text-blue-600'}`}>
+                                                Read &rarr;
+                                            </span>
+                                        </div>
+                                    </article>
+                                );
+                            })}
+                        </div>
+                    </main>
+
+                    {/* FOOTER */}
+                    <footer className={`py-16 mt-12 transition-colors ${isVice ? 'bg-black border-t-4 border-[#ccff00]' : 'bg-white border-t border-gray-200'}`}>
+                        <div className="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-12">
+                            <div className="col-span-1 md:col-span-2">
+                                <div className="flex items-center gap-2 mb-4">
+                                    <DiversaLogo isVice={isVice} className={`w-6 h-6 ${isVice ? 'text-white' : 'text-slate-900'}`} />
+                                    <h2 className={`text-2xl font-bold ${isVice ? 'text-[#ccff00] font-mono' : 'text-slate-900 font-serif'}`}>
+                                        DIVERSA.NEWS
+                                    </h2>
+                                </div>
+                                <p className="opacity-60 max-w-sm mb-6">
+                                    {isVice 
+                                        ? "The data is permanent. The truth is volatile. Access the raw feed via our secure protocol." 
+                                        : "A Diapason Foundation initiative. Empowering independent journalism through decentralized technology."}
+                                </p>
+                                {isVice ? (
+                                    <div className="p-4 border border-zinc-800 bg-zinc-900 font-mono text-xs text-[#ccff00]">
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <Icons.Tor className="w-4 h-4" /> 
+                                            <span className="font-bold">TOR MIRROR ACTIVE</span>
+                                        </div>
+                                        <div className="opacity-50 break-all">dvsra74xquq...onion</div>
+                                    </div>
+                                ) : (
+                                    <button className="bg-blue-600 text-white px-6 py-2 rounded font-bold hover:bg-blue-700 transition">
+                                        Support the Foundation
+                                    </button>
+                                )}
+                            </div>
+                            <div>
+                                <h4 className="font-bold mb-4 uppercase text-xs tracking-wider opacity-50">Protocol</h4>
+                                <ul className="space-y-2 text-sm opacity-70">
+                                    <li><a href="#" className="hover:underline">Nodes & Validators</a></li>
+                                    <li><a href="#" className="hover:underline">Content Policy</a></li>
+                                    <li><a href="#" className="hover:underline">Banana Index API</a></li>
+                                    <li><a href="#" className="hover:underline">Whitepaper</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 className="font-bold mb-4 uppercase text-xs tracking-wider opacity-50">{isVice ? 'Secure Comms' : 'Connect'}</h4>
+                                <ul className="space-y-2 text-sm opacity-70">
+                                    {isVice ? (
+                                        <>
+                                            <li className="flex items-center gap-2"><Icons.Key className="w-4 h-4"/> Download PGP Key</li>
+                                            <li><a href="#" className="hover:text-[#ff00ff]">Secure Drop</a></li>
+                                            <li><a href="#" className="hover:text-[#ff00ff]">Canary</a></li>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <li><a href="#" className="hover:text-blue-600">Twitter / X</a></li>
+                                            <li><a href="#" className="hover:text-blue-600">Discord</a></li>
+                                            <li><a href="#" className="hover:text-blue-600">Newsletter</a></li>
+                                        </>
+                                    )}
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="max-w-7xl mx-auto px-4 mt-12 pt-8 border-t border-opacity-10 border-current text-center text-xs opacity-40">
+                            &copy; 2025 Diapason Foundation. {isVice ? 'COPYLEFT. DISTRIBUTE FREELY.' : 'All Rights Reserved.'}
+                        </div>
+                    </footer>
                 </div>
-            </section>
+            );
+        };
 
-            <!-- Featured Articles Section -->
-            <section class="py-16 md:py-24 border-t border-gray-800">
-                <div class="text-center max-w-2xl mx-auto">
-                    <h2 class="font-serif text-4xl font-medium">From the Archive</h2>
-                    <p class="font-sans text-lg text-gray-300 mt-4">
-                        Explore stories protected by our protocol. Verifiable, permanent, and free.
-                    </p>
-                </div>
-                
-                <div class="mt-16 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                    <!-- Article Card 1 -->
-                    <div class="group">
-                        <p class="font-sans text-xs text-gray-400 mb-2">FIELD REPORT | OCT 08, 2023</p>
-                        <h3 class="font-serif text-xl font-semibold leading-snug group-hover:text-blue-400 transition-colors duration-200">
-                            <a href="#">The Silent Drought: On-the-Ground Accounts from the Parched Farmlands</a>
-                        </h3>
-                        <p class="font-sans text-sm text-gray-400 mt-3">An in-depth look at the water crisis affecting rural communities, with first-hand testimonies from those impacted.</p>
-                        <a href="#" class="font-sans text-sm font-semibold mt-4 inline-block">Read More &rarr;</a>
-                    </div>
-                    
-                    <!-- Article Card 2 -->
-                    <div class="group">
-                        <p class="font-sans text-xs text-gray-400 mb-2">INVESTIGATION | SEP 21, 2023</p>
-                        <h3 class="font-serif text-xl font-semibold leading-snug group-hover:text-blue-400 transition-colors duration-200">
-                            <a href="#">Following the Money: Unraveling Offshore Networks in Urban Development</a>
-                        </h3>
-                        <p class="font-sans text-sm text-gray-400 mt-3">A data-driven investigation tracing the flow of capital through complex legal structures that hide ownership.</p>
-                        <a href="#" class="font-sans text-sm font-semibold mt-4 inline-block">Read More &rarr;</a>
-                    </div>
-
-                    <!-- Article Card 3 -->
-                    <div class="group">
-                        <p class="font-sans text-xs text-gray-400 mb-2">EXPLAINER | SEP 05, 2023</p>
-                        <h3 class="font-serif text-xl font-semibold leading-snug group-hover:text-blue-400 transition-colors duration-200">
-                            <a href="#">Decentralized Identity: Reclaiming Your Digital Self in the Age of Big Tech</a>
-                        </h3>
-                        <p class="font-sans text-sm text-gray-400 mt-3">How emerging Web3 technologies are creating new paradigms for privacy, ownership, and personal data.</p>
-                        <a href="#" class="font-sans text-sm font-semibold mt-4 inline-block">Read More &rarr;</a>
-                    </div>
-                </div>
-            </section>
-        </main>
-
-        <!-- Footer -->
-        <footer class="py-12 mt-16 border-t border-gray-800">
-            <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-                <p class="font-sans text-sm text-gray-500">&copy; 2025 Diapason Foundation. All Rights Reserved.</p>
-                <div class="flex items-center space-x-6">
-                    <a href="#" class="font-sans text-sm text-gray-400 hover:text-white">Privacy Policy</a>
-                    <a href="#" class="font-sans text-sm text-gray-400 hover:text-white">Contact Us</a>
-                </div>
-            </div>
-        </footer>
-
-    </div>
-
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
 </body>
 </html>
-
